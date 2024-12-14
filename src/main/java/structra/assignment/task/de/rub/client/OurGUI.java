@@ -1,13 +1,9 @@
-package structra.assignment.task.impl;
+package structra.assignment.task.de.rub.client;
 
 
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.basic.DefaultMenuLayout;
 
 public class OurGUI {
 

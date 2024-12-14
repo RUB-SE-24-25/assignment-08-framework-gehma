@@ -31,6 +31,7 @@ import structra.assignment.framework.llm.context.SystemContextBuilder;
 import structra.assignment.framework.llm.context.specification.GenericContext;
 import structra.assignment.framework.llm.gen.questions.QuestionGenerationTarget;
 import structra.assignment.framework.llm.gen.questions.TargetProvider;
+import structra.assignment.framework.llm.model.Mimic;
 import structra.assignment.framework.model.question.base.Question;
 
 import java.util.Collection;
@@ -89,6 +90,8 @@ public class ModelQuestionProvider implements QuestionProvider {
         this.targetProvider = Objects.requireNonNull(targetProvider);
         this.initialQuestionContext = getInitialQuestionContext(contextQuestions);
     }
+
+
 
     /** {@inheritDoc} */
     @Override

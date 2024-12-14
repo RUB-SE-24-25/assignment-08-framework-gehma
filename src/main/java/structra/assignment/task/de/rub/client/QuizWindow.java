@@ -1,11 +1,7 @@
-package structra.assignment.task.impl;
+package structra.assignment.task.de.rub.client;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class QuizWindow {
 
@@ -54,7 +50,7 @@ public class QuizWindow {
         GridBagConstraints buttonGbc = new GridBagConstraints();
 
         newQuestion.addActionListener(e ->{
-                String newQuest= generateQuestion( );
+                String newQuest= generateQuestion();
                 answerArea.setText(newQuest);
                 newQuestion.setEnabled(false);
                 newQuestion.setBackground(Color.LIGHT_GRAY);
@@ -99,7 +95,7 @@ public class QuizWindow {
             gbc.insets = new Insets(5, 5, 5, 5);
 
         // the text area where the questions are getting into after Button click toDo
-        answerArea = new JTextArea("new Ansewers Herer");
+        answerArea = new JTextArea("Ready for the First Question?");
             answerArea.setFont(new Font("Arial", Font.PLAIN, 15));
             answerArea.setEditable(false);
             answerArea.setLineWrap(true);
@@ -163,8 +159,8 @@ public class QuizWindow {
     }
 
     public static String generateQuestion(){
-
-        return "Test";
+        String resutl = QuestGen.questionGen();
+        return resutl;
 
     }
 
