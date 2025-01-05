@@ -102,7 +102,7 @@ public class QuizWindow {
             gbc.insets = new Insets(5, 5, 5, 5);
 
         // the text area where the questions are getting into after Button click toDo
-        answerArea = new JTextArea("Ready for the First Question?");
+        answerArea = new JTextArea("Ready for the First Question? \n \n \nAnswers are displayed in the IDE Console " );
 
             answerArea.setFont(new Font("Arial", Font.PLAIN,frameHeight/50 ));
             answerArea.setEditable(false);

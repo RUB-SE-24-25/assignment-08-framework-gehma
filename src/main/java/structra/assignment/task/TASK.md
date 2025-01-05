@@ -3,7 +3,7 @@
 ## ⚠️ Implementation details ⚠️
 
 Your implementation should be placed in the package `src/main/java/structra/assignment/task/impl`. You may use Example.java
-as a reference, but you dont have to.
+as a reference, but you don't have to.
 
 ## a). **Plugin Creation**
 

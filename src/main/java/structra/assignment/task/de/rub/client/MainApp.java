@@ -15,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 
 public class MainApp{
+    // the  Answers to the questions are displayed in the IDE console
 
     public static void main(String[] args) {
         OurGUI gui = new OurGUI();

@@ -1,0 +1,70 @@
+@startuml
+
+interface QuestionType {
+    + getInitials() : QuestionData
+    + isStable() : boolean
+    + getDisplayName() : String
+}
+
+interface InitialQuestionProvider {
+    + getInitialData() : QuestionData
+}
+
+class BooleanQuestion implements QuestionType {
+    - stable : boolean = false
+    - displayName : String = "Boolean"
+    + getInitials() : QuestionData
+    + isStable() : boolean
+    + getDisplayName() : String
+}
+
+class SingleChoiceQuestion implements QuestionType {
+    - stable : boolean = true
+    - displayName : String = "Single Choice"
+    - initialQuestionProvider : InitialQuestionProvider
+    + getInitials() : QuestionData
+    + isStable() : boolean
+    + getDisplayName() : String
+}
+
+class MultipleChoiceQuestion implements QuestionType {
+    - stable : boolean = true
+    - displayName : String = "Multiple Choice"
+    - initialQuestionProvider : InitialQuestionProvider
+    + getInitials() : QuestionData
+    + isStable() : boolean
+    + getDisplayName() : String
+}
+
+class OpenAnswerQuestion implements QuestionType {
+    - stable : boolean = true
+    - displayName : String = "Open Answer"
+    - initialQuestionProvider : InitialQuestionProvider
+    + getInitials() : QuestionData
+    + isStable() : boolean
+    + getDisplayName() : String
+}
+
+class DefaultInitialDataProvider implements InitialQuestionProvider {
+    + getInitialData() : QuestionData
+}
+
+class OpenAnswerInitialDataProvider implements InitialQuestionProvider {
+    + getInitialData() : QuestionData
+}
+
+
+
+QuestionType <|-- BooleanQuestion
+QuestionType <|-- SingleChoiceQuestion
+QuestionType <|-- MultipleChoiceQuestion
+QuestionType <|-- OpenAnswerQuestion
+
+InitialQuestionProvider <|-- DefaultInitialDataProvider
+InitialQuestionProvider <|-- OpenAnswerInitialDataProvider
+
+SingleChoiceQuestion o--> InitialQuestionProvider
+MultipleChoiceQuestion o--> InitialQuestionProvider
+OpenAnswerQuestion o--> InitialQuestionProvider
+
+@enduml
