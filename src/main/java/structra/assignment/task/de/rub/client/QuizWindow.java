@@ -2,14 +2,19 @@ package structra.assignment.task.de.rub.client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class QuizWindow {
 
-    private JButton newQuestion;
+    private static JButton newQuestion;
 
     public QuizWindow() {
         QuizWindowGenerator();
     }
+    int frameHeight;
+    static ArrayList<String> currentAnswer;
+    static String explanation;
+
 
     public void QuizWindowGenerator() {
 
@@ -17,7 +22,7 @@ public class QuizWindow {
     double width = screenSize.getWidth();
     double height = screenSize.getHeight();
     int frameWidth = (int) (width);
-    int frameHeight = (int) (height);
+    frameHeight = (int) (height);
 
 
     JFrame quizFrame= new JFrame("The Quiz will be HARRRD");
@@ -46,7 +51,8 @@ public class QuizWindow {
         //buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
         buttonPanel.setBackground(Color.LIGHT_GRAY);
 
-        newQuestion = new JButton(" nexxxxt QUEEEEESTIOOON");
+        newQuestion = new JButton(" First Question");
+
         GridBagConstraints buttonGbc = new GridBagConstraints();
 
         newQuestion.addActionListener(e ->{
@@ -61,8 +67,8 @@ public class QuizWindow {
 
        });
         newQuestion.setFont(new Font("Arial", Font.PLAIN, 40));
-        newQuestion.setEnabled(false);
-        newQuestion.setBackground(Color.LIGHT_GRAY);
+        newQuestion.setEnabled(true);
+        newQuestion.setBackground(Color.decode("#40629f"));
         newQuestion.setForeground(Color.WHITE);
 
         buttonGbc.gridx = 0; // Place button in the first column
@@ -81,14 +87,15 @@ public class QuizWindow {
 
     }
     private JTextArea answerArea;
-    private JButton answerButton;
-    private JTextField answerField;
+    private static JButton answerButton;
+    private static JTextField answerField;
+
     public JPanel getAnswerPanel() {
         JPanel answerPanel = new JPanel();
 
         answerPanel.setBackground(Color.LIGHT_GRAY);
 
-        // create grid Bag layout so i cas set up the styling
+        // create grid Bag layout so i can set up the styling
 
         answerPanel.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
@@ -96,7 +103,8 @@ public class QuizWindow {
 
         // the text area where the questions are getting into after Button click toDo
         answerArea = new JTextArea("Ready for the First Question?");
-            answerArea.setFont(new Font("Arial", Font.PLAIN, 15));
+
+            answerArea.setFont(new Font("Arial", Font.PLAIN,frameHeight/50 ));
             answerArea.setEditable(false);
             answerArea.setLineWrap(true);
             answerArea.setWrapStyleWord(true);
@@ -113,10 +121,21 @@ public class QuizWindow {
             gbc.weighty = 0.90;
 
         answerPanel.add(answerArea, gbc);
-
-        answerField = new JTextField("enter your answer here");
-
+        // creating the answerfield fpr user input
+        answerField = new JTextField("If you're ready Press First Question");
+            answerField.setEditable(false);
             answerField.setFont(new Font("Arial", Font.PLAIN, 20));
+            answerField.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    answerField.setText("");
+                }
+            });
+            // add the listener fot the submitting
+            answerField.addActionListener(e -> {
+
+                checkAnswer();
+            });
 
             gbc.gridx = 0;
             gbc.gridy = 1; // Same row as the submit button
@@ -126,9 +145,10 @@ public class QuizWindow {
             gbc.fill = GridBagConstraints.BOTH;
 
         answerPanel.add(answerField, gbc);
-
-        answerButton = new JButton("submit");
-            answerButton.addActionListener(e -> checkAswer());
+        // create the button for submitting the answers with the respective grid layout
+        answerButton = new JButton("Submit");
+            answerButton.setEnabled(false);
+            answerButton.addActionListener(e -> checkAnswer());
             answerButton.setFont(new Font("Arial", Font.PLAIN, 20));
             answerButton.setBackground(Color.decode("#40629f")); // blue
             answerButton.setForeground(Color.WHITE);
@@ -143,24 +163,62 @@ public class QuizWindow {
     }
         // Todo create AnswerHandeling
 
-    public void checkAswer(){
-        System.out.println("Test");
-        if (answerField.getText().contentEquals("enter your answer here")){
-            answerButton.setBackground(Color.RED);
-            answerButton.setText("Wrong answer\n Try again");
-        }
-        else{
-            answerButton.setBackground(Color.GREEN);
-            answerButton.setText("Well DONE!!");
-            newQuestion.setBackground(Color.decode("#40629f"));
+    public void checkAnswer(){
+        //System.out.println("Test");
+        answerField.setEditable(true);
+        if ( answerArea.getText().contentEquals("Model Failed Try Again")) {
             newQuestion.setEnabled(true);
+            newQuestion.setBackground(Color.decode("#40629f"));
+        }
+        else
+        {
+            // check user input for correct answer and return the fittin button
+            for (String s : currentAnswer) {
+                //System.out.println(s);
+                if (answerField.getText().contentEquals(s)) {
+                    setAnswerTrue();
+                    return;
+                }
+                answerButton.setBackground(Color.RED);
+                answerButton.setText("Wrong answer\n Try again");
+                answerField.setRequestFocusEnabled(true);
+
+            }
+
+
         }
 
     }
+    // helper class to change button to True and allow new answer
+    private  void setAnswerTrue(){
+        answerField.setRequestFocusEnabled(true);
+        answerButton.setBackground(Color.GREEN);
+        answerButton.setText("Well DONE!!");
+        answerButton.setEnabled(false);
+        answerArea.append("\n"+explanation);
+        answerArea.append("\n");
+        answerArea.append("Answer: " +currentAnswer);
+        newQuestion.setBackground(Color.decode("#40629f"));
+        newQuestion.setEnabled(true);
+    }
 
     public static String generateQuestion(){
-        String resutl = QuestGen.questionGen();
-        return resutl;
+       // Submit button enable
+        answerButton.setEnabled(true);
+        //enable anserfield
+        answerField.setRequestFocusEnabled(true);
+        answerField.setEditable(true);
+        // update the question and set the new Button to unsolved
+
+        newQuestion.setEnabled(false);
+        newQuestion.setBackground(Color.LIGHT_GRAY);
+        newQuestion.setText("Next Question");
+        ArrayList<Object> result = QuestGen.questionGen();
+
+        currentAnswer= (ArrayList<String>) result.get(2);
+        explanation= (String) result.get(1);
+        System.out.println(currentAnswer);
+        return (String) result.get(0);
 
     }
 
