@@ -1,3 +1,8 @@
+//matrickel nummern :
+// Johanna Lütke Entrup - 10802306870
+//Melanie Waldikowski -  108023211670
+//Leonhard Herlitz -   108023208379
+
 package structra.assignment.task.de.rub.client;
 import structra.assignment.framework.llm.MachineLearningModel;
 import structra.assignment.framework.llm.gen.questions.OpenQuestionTarget;

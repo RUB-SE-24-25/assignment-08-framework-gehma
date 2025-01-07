@@ -1,5 +1,10 @@
 package structra.assignment.task.de.rub.client;
 
+//matrickel nummern :
+// Johanna Lütke Entrup - 10802306870
+//Melanie Waldikowski -  108023211670
+//Leonhard Herlitz -   108023208379
+
 import structra.assignment.framework.llm.MachineLearningModel;
 import structra.assignment.framework.llm.context.specification.SystemContext;
 import structra.assignment.framework.model.StringConstants;
