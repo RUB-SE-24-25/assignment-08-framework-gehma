@@ -1,3 +1,5 @@
+#Try an interface pattern where every question type is innitiated by QuestionType instead of directly implemented
+
 @startuml
 
 interface QuestionType {
@@ -6,9 +8,7 @@ interface QuestionType {
     + getDisplayName() : String
 }
 
-interface InitialQuestionProvider {
-    + getInitialData() : QuestionData
-}
+
 
 class BooleanQuestion implements QuestionType {
     - stable : boolean = false
@@ -21,7 +21,7 @@ class BooleanQuestion implements QuestionType {
 class SingleChoiceQuestion implements QuestionType {
     - stable : boolean = true
     - displayName : String = "Single Choice"
-    - initialQuestionProvider : InitialQuestionProvider
+
     + getInitials() : QuestionData
     + isStable() : boolean
     + getDisplayName() : String
@@ -30,7 +30,7 @@ class SingleChoiceQuestion implements QuestionType {
 class MultipleChoiceQuestion implements QuestionType {
     - stable : boolean = true
     - displayName : String = "Multiple Choice"
-    - initialQuestionProvider : InitialQuestionProvider
+
     + getInitials() : QuestionData
     + isStable() : boolean
     + getDisplayName() : String
@@ -39,32 +39,19 @@ class MultipleChoiceQuestion implements QuestionType {
 class OpenAnswerQuestion implements QuestionType {
     - stable : boolean = true
     - displayName : String = "Open Answer"
-    - initialQuestionProvider : InitialQuestionProvider
     + getInitials() : QuestionData
     + isStable() : boolean
     + getDisplayName() : String
 }
 
-class DefaultInitialDataProvider implements InitialQuestionProvider {
-    + getInitialData() : QuestionData
-}
-
-class OpenAnswerInitialDataProvider implements InitialQuestionProvider {
-    + getInitialData() : QuestionData
-}
 
 
 
-QuestionType <|-- BooleanQuestion
-QuestionType <|-- SingleChoiceQuestion
-QuestionType <|-- MultipleChoiceQuestion
-QuestionType <|-- OpenAnswerQuestion
 
-InitialQuestionProvider <|-- DefaultInitialDataProvider
-InitialQuestionProvider <|-- OpenAnswerInitialDataProvider
 
-SingleChoiceQuestion o--> InitialQuestionProvider
-MultipleChoiceQuestion o--> InitialQuestionProvider
-OpenAnswerQuestion o--> InitialQuestionProvider
+QuestionType <-- BooleanQuestion
+QuestionType <-- SingleChoiceQuestion
+QuestionType <-- MultipleChoiceQuestion
+QuestionType <-- OpenAnswerQuestion
 
 @enduml
